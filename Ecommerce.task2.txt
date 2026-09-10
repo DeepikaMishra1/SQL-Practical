@@ -1,0 +1,298 @@
+-- Create database
+CREATE DATABASE ecommerce_db;
+
+-- Select database
+USE ecommerce_db;
+
+
+-- Create products table
+CREATE TABLE products (
+    product_id INT PRIMARY KEY,
+    product_name VARCHAR(100),
+    category VARCHAR(50),
+    brand VARCHAR(50),
+    price DECIMAL(10,2),
+    quantity INT,
+    city VARCHAR(50),
+    status VARCHAR(20)
+);
+
+-- Display table structure
+DESC products;
+
+-- Display available tables
+SHOW TABLES;
+
+
+-- Insert product records
+INSERT INTO products
+VALUES (201, 'Galaxy M55', 'Mobile', 'Samsung', 32000, 15, 'Pune', 'Available');
+
+INSERT INTO products
+VALUES (202, 'iPhone 15', 'Mobile', 'Apple', 65000, 8, 'Mumbai', 'Available');
+
+INSERT INTO products
+VALUES (203, 'Moto Edge 50', 'Mobile', 'Motorola', 28000, 20, 'Pune', 'Available');
+
+INSERT INTO products
+VALUES (204, 'Inspiron 15', 'Laptop', 'Dell', 58000, 6, 'Nashik', 'Available');
+
+INSERT INTO products
+VALUES (205, 'IdeaPad Slim 3', 'Laptop', 'Lenovo', 45000, 12, 'Mumbai', 'Available');
+
+INSERT INTO products
+VALUES (206, 'Galaxy Watch 6', 'Watch', 'Samsung', 22000, 4, 'Pune', 'Out of Stock');
+
+INSERT INTO products
+VALUES (207, 'Apple Watch SE', 'Watch', 'Apple', 30000, 10, 'Mumbai', 'Available');
+
+INSERT INTO products
+VALUES (208, 'Redmi Pad', 'Tablet', 'Xiaomi', 24000, 18, 'Pune', 'Available');
+
+INSERT INTO products
+VALUES (209, 'OnePlus Pad', 'Tablet', 'OnePlus', 35000, 5, 'Nashik', 'Available');
+
+INSERT INTO products
+VALUES (210, 'Bluetooth Speaker', 'Accessories', 'JBL', 7000, 25, 'Mumbai', 'Available');
+
+
+-- Display all products
+SELECT * FROM products;
+
+-- Display product names
+SELECT product_name
+FROM products;
+
+-- Display product name and price
+SELECT product_name, price
+FROM products;
+
+-- Display product details
+SELECT product_name, category, brand, price
+FROM products;
+
+
+-- Products available in Pune
+SELECT *
+FROM products
+WHERE city = 'Pune';
+
+-- Products belonging to Mobile category
+SELECT *
+FROM products
+WHERE category = 'Mobile';
+
+-- Products belonging to Laptop category
+SELECT *
+FROM products
+WHERE category = 'Laptop';
+
+-- Products with price greater than 30000
+SELECT *
+FROM products
+WHERE price > 30000;
+
+-- Products with price less than 30000
+SELECT *
+FROM products
+WHERE price < 30000;
+
+-- Product with price equal to 35000
+SELECT *
+FROM products
+WHERE price = 35000;
+
+-- Products with price greater than or equal to 45000
+SELECT *
+FROM products
+WHERE price >= 45000;
+
+-- Products with price less than or equal to 30000
+SELECT *
+FROM products
+WHERE price <= 30000;
+
+-- Products having quantity greater than 10
+SELECT *
+FROM products
+WHERE quantity > 10;
+
+-- Products having quantity less than 10
+SELECT *
+FROM products
+WHERE quantity < 10;
+
+
+-- Products from Pune and Mobile category
+SELECT *
+FROM products
+WHERE city = 'Pune'
+AND category = 'Mobile';
+
+-- Available products in Mumbai
+SELECT *
+FROM products
+WHERE city = 'Mumbai'
+AND status = 'Available';
+
+-- Products with price above 30000 and quantity above 5
+SELECT *
+FROM products
+WHERE price > 30000
+AND quantity > 5;
+
+-- Products with price between 30000 and 60000
+SELECT *
+FROM products
+WHERE price >= 30000
+AND price <= 60000;
+
+
+-- Products from Pune or Mumbai
+SELECT *
+FROM products
+WHERE city = 'Pune'
+OR city = 'Mumbai';
+
+-- Mobile or Laptop products
+SELECT *
+FROM products
+WHERE category = 'Mobile'
+OR category = 'Laptop';
+
+-- Products with quantity below 10 or price above 50000
+SELECT *
+FROM products
+WHERE quantity < 10
+OR price > 50000;
+
+
+-- Mobile products with price above 30000
+SELECT *
+FROM products
+WHERE category = 'Mobile'
+AND price > 30000;
+
+-- Samsung or Apple products
+SELECT *
+FROM products
+WHERE brand = 'Samsung'
+OR brand = 'Apple';
+
+-- Available Pune products with quantity above 10
+SELECT *
+FROM products
+WHERE city = 'Pune'
+AND status = 'Available'
+AND quantity > 10;
+
+
+-- Products with price between 25000 and 50000
+SELECT *
+FROM products
+WHERE price BETWEEN 25000 AND 50000;
+
+-- Products with quantity between 5 and 15
+SELECT *
+FROM products
+WHERE quantity BETWEEN 5 AND 15;
+
+
+-- Products from Mobile, Laptop or Tablet category
+SELECT *
+FROM products
+WHERE category IN ('Mobile', 'Laptop', 'Tablet');
+
+-- Products from Pune or Mumbai
+SELECT *
+FROM products
+WHERE city IN ('Pune', 'Mumbai');
+
+
+-- Products whose brand is not Samsung
+SELECT *
+FROM products
+WHERE brand <> 'Samsung';
+
+-- Products which are not Out of Stock
+SELECT *
+FROM products
+WHERE status <> 'Out of Stock';
+
+-- Products whose price is not 30000
+SELECT *
+FROM products
+WHERE price <> 30000;
+
+
+-- Products starting with Galaxy
+SELECT *
+FROM products
+WHERE product_name LIKE 'Galaxy%';
+
+-- Products containing Pad in name
+SELECT *
+FROM products
+WHERE product_name LIKE '%Pad%';
+
+
+-- Mobile products with price above 30000 or quantity above 15
+SELECT *
+FROM products
+WHERE category = 'Mobile'
+AND (price > 30000 OR quantity > 15);
+
+
+-- Update price of product 201
+UPDATE products
+SET price = 34000
+WHERE product_id = 201;
+
+-- Check updated product
+SELECT *
+FROM products
+WHERE product_id = 201;
+
+-- Update quantity of product 202
+UPDATE products
+SET quantity = 12
+WHERE product_id = 202;
+
+-- Change status of product 206
+UPDATE products
+SET status = 'Available'
+WHERE product_id = 206;
+
+-- Increase price of all Mobile products by 2000
+UPDATE products
+SET price = price + 2000
+WHERE category = 'Mobile';
+
+-- Increase quantity of Pune products by 5
+UPDATE products
+SET quantity = quantity + 5
+WHERE city = 'Pune';
+
+-- Set products with quantity below 5 as Out of Stock
+UPDATE products
+SET status = 'Out of Stock'
+WHERE quantity < 5;
+
+
+-- Delete product 210
+DELETE FROM products
+WHERE product_id = 210;
+
+-- Delete products with price below 8000
+DELETE FROM products
+WHERE price < 8000;
+
+-- Delete Out of Stock products with quantity below 5
+DELETE FROM products
+WHERE status = 'Out of Stock'
+AND quantity < 5;
+
+-- Delete Tablets with price above 30000
+DELETE FROM products
+WHERE category = 'Tablet'
+AND price > 30000;
